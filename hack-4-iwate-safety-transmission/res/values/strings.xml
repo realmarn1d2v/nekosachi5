@@ -4,5 +4,6 @@
     <string name="app_name">Bujidasu</string>
     
     <string name="menu_preferences">Preferences</string>
+    <string name="sms_input">Please input a phone number</string>
     
 </resources>

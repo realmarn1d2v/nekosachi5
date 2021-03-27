@@ -3,6 +3,7 @@ package jp.hack4.safety_transmission;
 import java.util.List;
 
 import android.app.Activity;
+
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +14,12 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
+
 
 public class MainActivity extends Activity implements LocationListener {
     private LocationManager mgr;
@@ -27,6 +30,13 @@ public class MainActivity extends Activity implements LocationListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        Button btn = (Button) findViewById(R.id.save_button);
+        btn.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	Intent i = new Intent(getApplicationContext(),SMSPreferences.class);
+            	startActivity(i);
+            }
+        });
 
         /* 位置情報の取得 */  
 		 // ロケーションマネージャの取得  

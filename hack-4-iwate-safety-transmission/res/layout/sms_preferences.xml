@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:text="@string/sms_input" />
+    <EditText android:id="@+id/sms_input" 
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:maxLines="1" 
+        android:singleLine="true" />
+    <Button android:id="@+id/sms_save" 
+        android:layout_height="wrap_content" 
+        android:text="Save" 
+        android:layout_width="fill_parent" 
+        android:layout_alignParentBottom="true" 
+        android:layout_gravity="bottom" />
+    　　<ListView android:id="@+id/sms_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
