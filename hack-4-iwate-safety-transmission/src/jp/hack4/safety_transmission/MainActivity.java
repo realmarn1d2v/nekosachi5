@@ -23,8 +23,8 @@ import android.widget.Button;
 
 public class MainActivity extends Activity implements LocationListener {
     private LocationManager mgr;
+    private StringBuffer idokeido = new StringBuffer(100);
     
-	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,37 +38,39 @@ public class MainActivity extends Activity implements LocationListener {
             }
         });
 
-        /* ˆÊ’uî•ñ‚Ìæ“¾ */  
-		 // ƒƒP[ƒVƒ‡ƒ“ƒ}ƒl[ƒWƒƒ‚Ìæ“¾  
+        /* ä½ç½®æƒ…å ±ã®å–å¾— */  
+		 // ãƒ­ã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ã®å–å¾—  
 		 LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);  
-		 // Å“K‚ÈˆÊ’uî•ñƒvƒƒoƒCƒ_‚Ì‘I‘ğ  
-		 // Criteria‚ğ•ÏX‚·‚é‚±‚Æ‚ÅCŠeíİ’è•ÏX‰Â”\  
+		 // æœ€é©ãªä½ç½®æƒ…å ±ãƒ—ãƒ­ãƒã‚¤ãƒ€ã®é¸æŠ  
+		 // Criteriaã‚’å¤‰æ›´ã™ã‚‹ã“ã¨ã§ï¼Œå„ç¨®è¨­å®šå¤‰æ›´å¯èƒ½  
 		 String bs = lm.getBestProvider(new Criteria(), true);  
 		   
 		 Location locate = lm.getLastKnownLocation(bs);  
 		 if(locate == null){  
-		  // Œ»İ’n‚ªæ“¾‚Å‚«‚È‚©‚Á‚½ê‡CGPS‚Åæ“¾‚µ‚Ä‚İ‚é  
+		  // ç¾åœ¨åœ°ãŒå–å¾—ã§ããªã‹ã£ãŸå ´åˆï¼ŒGPSã§å–å¾—ã—ã¦ã¿ã‚‹  
 		  locate = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);  
 		 }  
 		 if(locate == null){  
-		  // Œ»İ’n‚ªæ“¾‚Å‚«‚È‚©‚Á‚½ê‡C–³ü‘ªˆÊ‚Åæ“¾‚µ‚Ä‚İ‚é  
+		  // ç¾åœ¨åœ°ãŒå–å¾—ã§ããªã‹ã£ãŸå ´åˆï¼Œç„¡ç·šæ¸¬ä½ã§å–å¾—ã—ã¦ã¿ã‚‹  
 		  locate = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);  
 		 }  
 		 
-		 if(locate != null){ // Œ»İ’nî•ñæ“¾¬Œ÷  
-		  // ˆÜ“x‚Ìæ“¾  
+		 if(locate != null){ // ç¾åœ¨åœ°æƒ…å ±å–å¾—æˆåŠŸ  
+		  // ç·¯åº¦ã®å–å¾—  
 		  int latitude = (int) (locate.getLatitude() * 1e6);  
-		  // Œo“x‚Ìæ“¾  
+		  // çµŒåº¦ã®å–å¾—  
 		  int longitude = (int) (locate.getLongitude() * 1e6);  
 		  Log.d("MYTAG", String.valueOf(latitude));  
-		  Log.d("MYTAG", String.valueOf(longitude));  
+		  Log.d("MYTAG", String.valueOf(longitude));
+		  idokeido.append(String.valueOf(latitude)+String.valueOf(longitude)).toString(); 
+
 		 } else {  
-		  /* Œ»İ’nî•ñæ“¾¸”sˆ— */
-			 // ’[––‚ÌˆÊ’uî•ñİ’è‰æ–Ê‚Ö‘JˆÚ  
+		  /* ç¾åœ¨åœ°æƒ…å ±å–å¾—å¤±æ•—å‡¦ç† */
+			 // ç«¯æœ«ã®ä½ç½®æƒ…å ±è¨­å®šç”»é¢ã¸é·ç§»  
 			 try {  
 			  startActivity(new Intent("android.settings.LOCATION_SOURCE_SETTINGS"));  
 			 } catch (final ActivityNotFoundException e) {  
-			  // ˆÊ’uî•ñİ’è‰æ–Ê‚ª‚È‚¢’[––‚Ìê‡  
+			  // ä½ç½®æƒ…å ±è¨­å®šç”»é¢ãŒãªã„ç«¯æœ«ã®å ´åˆ  
 			 } 
 			 
 		 }
@@ -85,15 +87,15 @@ public class MainActivity extends Activity implements LocationListener {
 
 												
 			    Intent intent = new Intent();  
-			    // ƒAƒNƒVƒ‡ƒ“‚ğw’è  
+			    // ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’æŒ‡å®š  
 			    intent.setAction(Intent.ACTION_SENDTO);  
-			    // ƒf[ƒ^‚ğw’è  
+			    // ãƒ‡ãƒ¼ã‚¿ã‚’æŒ‡å®š  
 			    intent.setData(Uri.parse("mailto:kawamurh@gmail.com"));  
-			    // Œ–¼‚ğw’è  
-			    intent.putExtra(Intent.EXTRA_SUBJECT, "Œ–¼");  
-			    // –{•¶‚ğw’è  
-			    intent.putExtra(Intent.EXTRA_TEXT, "–{•¶‚Ì“à—e");  
-			    // Intent‚ğ”­s  
+			    // ä»¶åã‚’æŒ‡å®š  
+			    intent.putExtra(Intent.EXTRA_SUBJECT, "ä»¶å");  
+			    // æœ¬æ–‡ã‚’æŒ‡å®š  
+			    intent.putExtra(Intent.EXTRA_TEXT, "æœ¬æ–‡ã®å†…å®¹");  
+			    // Intentã‚’ç™ºè¡Œ  
 			    startActivity(intent);  
 			    
 			}
