@@ -3,5 +3,9 @@
     <string name="app_name">ブジだす君</string>
     
     <string name="menu_preferences">設定</string>
+
+    <string name="email_preference_category_title">Email設定</string>
+    <string name="email_preference_title">Emailの設定</string>
+    <string name="email_preference_summary">送信先のEmailアドレスを入力してください</string>
         
 </resources>

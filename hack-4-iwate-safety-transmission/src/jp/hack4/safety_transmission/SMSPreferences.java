@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 public class SMSPreferences extends Activity {	
-	private ArrayAdapter<String> adapter = null;
+	public static ArrayAdapter<String> adapter = null;
 	private EditText text = null;
 	
 	public void onCreate(Bundle savedInstanceState) {

@@ -16,6 +16,9 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,8 +36,9 @@ public class MainActivity extends Activity implements LocationListener {
         Button btn = (Button) findViewById(R.id.save_button);
         btn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            	Intent i = new Intent(getApplicationContext(),SMSPreferences.class);
-            	startActivity(i);
+                // get Message (GPS info + "大丈夫です")
+                // send SMS here
+                // send Intent for mail here.
             }
         });
 
@@ -126,6 +130,34 @@ public class MainActivity extends Activity implements LocationListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean ret = false;
+        switch(item.getItemId()) {
+        case R.id.menu_preferences:
+            Intent intent = new Intent(getApplicationContext(), PreferenceActivity.class);
+            startActivity(intent);
+            ret = true;
+            break;
+        default:
+            ret = super.onOptionsItemSelected(item);
+        }
+        return ret;
+    }
+
+
+	
+	
 
 
 }

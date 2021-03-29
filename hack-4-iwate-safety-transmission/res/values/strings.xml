@@ -6,4 +6,17 @@
     <string name="menu_preferences">Preferences</string>
     <string name="sms_input">Please input a phone number</string>
     
+    <!-- Preference -->
+    <!-- Email -->
+    <string name="email_preference_category_title">Email</string>
+    <string name="email_preference_title">Email</string>
+    <string name="email_preference_key">email_preference_key</string>
+    <string name="email_preference_summary">Put email address to send</string>
+    
+    <!-- SMS -->
+    <string name="sms_preference_category_title">SMS</string>
+    <string name="sms_preference_title">SMS</string>
+    <string name="sms_preference_key">sms_preference_key</string>
+    <string name="sms_preference_summary">Put phone number to send SMS</string>
+    
 </resources>
