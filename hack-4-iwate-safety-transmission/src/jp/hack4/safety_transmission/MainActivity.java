@@ -2,6 +2,8 @@ package jp.hack4.safety_transmission;
 
 import java.util.List;
 
+import org.apache.http.cookie.SM;
+
 import android.app.Activity;
 
 import android.content.ActivityNotFoundException;
@@ -33,14 +35,6 @@ public class MainActivity extends Activity implements LocationListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Button btn = (Button) findViewById(R.id.save_button);
-        btn.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                // get Message (GPS info + "大丈夫です")
-                // send SMS here
-                // send Intent for mail here.
-            }
-        });
 
         /* 位置情報の取得 */  
 		 // ロケーションマネージャの取得  
@@ -66,7 +60,7 @@ public class MainActivity extends Activity implements LocationListener {
 		  int longitude = (int) (locate.getLongitude() * 1e6);  
 		  Log.d("MYTAG", String.valueOf(latitude));  
 		  Log.d("MYTAG", String.valueOf(longitude));
-		  idokeido.append(String.valueOf(latitude)+String.valueOf(longitude)).toString(); 
+		  idokeido.append("Lat:" + locate.getLatitude() + ", Long:" + locate.getLongitude()).toString(); 
 
 		 } else {  
 		  /* 現在地情報取得失敗処理 */
@@ -87,9 +81,19 @@ public class MainActivity extends Activity implements LocationListener {
         	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Log.d("TEST","Enter here2");
 
-												
+			    Log.d("TEST","Enter here2");
+                // send SMS here
+			    if (SMSPreferences.adapter != null) {
+			        int sms_size = SMSPreferences.adapter.getCount();
+			        SMS sms = new SMS();
+			        for (int i = 0 ; i < sms_size; i++) {
+			            String number = SMSPreferences.adapter.getItem(i);
+			            // sms.send(number, "I am fine");
+			        }
+			    }
+
+				// Send Mail
 			    Intent intent = new Intent();  
 			    // アクションを指定  
 			    intent.setAction(Intent.ACTION_SENDTO);  
@@ -98,9 +102,10 @@ public class MainActivity extends Activity implements LocationListener {
 			    // 件名を指定  
 			    intent.putExtra(Intent.EXTRA_SUBJECT, "件名");  
 			    // 本文を指定  
-			    intent.putExtra(Intent.EXTRA_TEXT, "本文の内容");  
+			    intent.putExtra(Intent.EXTRA_TEXT, "本文の内容: " + idokeido);  
 			    // Intentを発行  
 			    startActivity(intent);  
+			    
 			    
 			}
 
