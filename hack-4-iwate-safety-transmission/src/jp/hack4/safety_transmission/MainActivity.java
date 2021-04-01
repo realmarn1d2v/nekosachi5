@@ -74,10 +74,8 @@ public class MainActivity extends Activity implements LocationListener {
 		 }
 		 
 		
-        
         Button button = (Button)findViewById(R.id.save_button);
-        button.setOnClickListener(new View.OnClickListener() {
-			
+        button.setOnClickListener(new View.OnClickListener() {	
         	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -112,7 +110,6 @@ public class MainActivity extends Activity implements LocationListener {
 		});
     }
 
-
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
 		
@@ -135,7 +132,6 @@ public class MainActivity extends Activity implements LocationListener {
 		// TODO Auto-generated method stub
 		
 	}
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

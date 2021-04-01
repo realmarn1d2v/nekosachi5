@@ -2,11 +2,12 @@
 <resources>
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">Bujidasu</string>
-    
+
+    <!-- Preference -->
     <string name="menu_preferences">Preferences</string>
     <string name="sms_input">Please input a phone number</string>
-    
-    <!-- Preference -->
+    <string name="email_input">Please input a e-mail address</string>
+ 
     <!-- Email -->
     <string name="email_preference_category_title">Email</string>
     <string name="email_preference_title">Email</string>
@@ -18,5 +19,4 @@
     <string name="sms_preference_title">SMS</string>
     <string name="sms_preference_key">sms_preference_key</string>
     <string name="sms_preference_summary">Put phone number to send SMS</string>
-    
 </resources>

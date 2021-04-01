@@ -31,15 +31,21 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
         /*
          * Activity for Email Setting.
          */
+        Context context = getApplicationContext();
+        intent = new Intent(context, EmailPreferences.class);
+        Preference pref = findPreference(getString(R.string.email_preference_key));
+        pref.setIntent(intent);
+        
         // intent = new Intent(getApplicationContext(), EmailPreferenceActivity.class);
         // mHashMap.put(R.string.email_preference_category_title, intent);
         /*
          * Activity for SMS setting.
          */
-        Context context = getApplicationContext();
+        context = getApplicationContext();
         intent = new Intent(context, SMSPreferences.class);
-        Preference pref = findPreference(getString(R.string.sms_preference_key));
+        pref = findPreference(getString(R.string.sms_preference_key));
         pref.setIntent(intent);
+        
         
         // mHashMap.put(R.string.sms_preference_category_title, intent);
         
