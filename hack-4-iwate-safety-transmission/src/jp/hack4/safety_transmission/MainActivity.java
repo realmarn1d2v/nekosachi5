@@ -79,7 +79,7 @@ public class MainActivity extends Activity implements LocationListener {
         	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
+			    String msg = "私は大丈夫. 現在地は: " + idokeido;
 			    Log.d("TEST","Enter here2");
                 // send SMS here
 			    if (SMSPreferences.adapter != null) {
@@ -87,26 +87,26 @@ public class MainActivity extends Activity implements LocationListener {
 			        SMS sms = new SMS();
 			        for (int i = 0 ; i < sms_size; i++) {
 			            String number = SMSPreferences.adapter.getItem(i);
-			            // sms.send(number, "I am fine");
+			            sms.send(number, msg);
 			        }
 			    }
 
 				// Send Mail
-			    Intent intent = new Intent();  
-			    // アクションを指定  
-			    intent.setAction(Intent.ACTION_SENDTO);  
-			    // データを指定  
-			    intent.setData(Uri.parse("mailto:kawamurh@gmail.com"));  
-			    // 件名を指定  
-			    intent.putExtra(Intent.EXTRA_SUBJECT, "件名");  
-			    // 本文を指定  
-			    intent.putExtra(Intent.EXTRA_TEXT, "本文の内容: " + idokeido);  
-			    // Intentを発行  
-			    startActivity(intent);  
-			    
-			    
+			    if (EmailPreferences.adapter != null) {
+			        String dstAddr = EmailPreferences.adapter.getItem(0);
+		             Intent intent = new Intent();  
+		             // アクションを指定  
+		             intent.setAction(Intent.ACTION_SENDTO);  
+		             // データを指定  
+		             intent.setData(Uri.parse("mailto:" + dstAddr));
+		             // 件名を指定  
+		             intent.putExtra(Intent.EXTRA_SUBJECT, "件名");  
+		             // 本文を指定  
+		             intent.putExtra(Intent.EXTRA_TEXT, msg);
+		             // Intentを発行  
+		             startActivity(intent);  
+			    }
 			}
-
 		});
     }
 
