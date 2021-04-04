@@ -11,7 +11,7 @@
     <EditText android:id="@+id/editText1" android:layout_width="fill_parent" android:layout_height="wrap_content" />
     <Button android:id="@+id/save_button" 
         android:layout_height="wrap_content" 
-        android:text="Button" 
+        android:text="send" 
         android:layout_width="fill_parent" 
         android:layout_alignParentBottom="true" 
         android:layout_gravity="bottom" />

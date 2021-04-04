@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,17 @@ public class SMSPreferences extends Activity {
         }
         list.setAdapter(adapter);
         
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        	@Override
+    	    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
+        		ListView list = (ListView)parent;
+        		String item = (String)list.getItemAtPosition(position);
+        		ArrayAdapter<String> adapter = (ArrayAdapter<String>)list.getAdapter();
+        		adapter.remove(item);
+				return false;
+        	} 
+    	});
+        
         text = (EditText) findViewById(R.id.sms_input);
         
         text.setOnKeyListener(new View.OnKeyListener() {
@@ -30,6 +42,7 @@ public class SMSPreferences extends Activity {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if(((event.getAction() == KeyEvent.ACTION_UP) && (keyCode == KeyEvent.KEYCODE_ENTER))){
 					adapter.add(text.getText().toString());
+					text.setText("");
 				}
 				return false;
 			}
@@ -39,6 +52,7 @@ public class SMSPreferences extends Activity {
         btn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             	adapter.add(text.getText().toString());
+            	text.setText("");
             }
         });
 	}

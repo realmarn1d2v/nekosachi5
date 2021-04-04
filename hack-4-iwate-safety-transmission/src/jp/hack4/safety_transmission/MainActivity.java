@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class MainActivity extends Activity implements LocationListener {
@@ -79,7 +80,8 @@ public class MainActivity extends Activity implements LocationListener {
         	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-			    String msg = "私は大丈夫. 現在地は: " + idokeido;
+				EditText text = (EditText) findViewById(R.id.save_button);
+			    String msg = text + " 現在地は: " + idokeido;
 			    Log.d("TEST","Enter here2");
                 // send SMS here
 			    if (SMSPreferences.adapter != null) {
