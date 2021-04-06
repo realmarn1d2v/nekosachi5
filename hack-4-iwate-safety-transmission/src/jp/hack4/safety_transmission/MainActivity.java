@@ -80,8 +80,8 @@ public class MainActivity extends Activity implements LocationListener {
         	
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				EditText text = (EditText) findViewById(R.id.save_button);
-			    String msg = text + " 現在地は: " + idokeido;
+				EditText text = (EditText) findViewById(R.id.editText1);
+			    String msg = text.getText().toString() + " 現在地は: " + idokeido;
 			    Log.d("TEST","Enter here2");
                 // send SMS here
 			    if (SMSPreferences.adapter != null) {
