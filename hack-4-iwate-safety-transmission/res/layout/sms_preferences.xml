@@ -12,7 +12,8 @@
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         android:maxLines="1" 
-        android:inputType="number" />
+        android:inputType="number" 
+        android:singleLine="true" />
     <Button android:id="@+id/sms_save" 
         android:layout_height="wrap_content" 
         android:text="Save" 

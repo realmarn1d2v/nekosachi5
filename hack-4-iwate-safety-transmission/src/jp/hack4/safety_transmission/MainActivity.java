@@ -108,6 +108,7 @@ public class MainActivity extends Activity implements LocationListener {
 		             // Intentを発行  
 		             startActivity(intent);  
 			    }
+			    text.setText("");
 			}
 		});
     }
