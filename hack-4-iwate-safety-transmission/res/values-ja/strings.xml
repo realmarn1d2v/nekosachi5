@@ -7,5 +7,11 @@
     <string name="email_preference_category_title">Email設定</string>
     <string name="email_preference_title">Emailの設定</string>
     <string name="email_preference_summary">送信先のEmailアドレスを入力してください</string>
+
+    <string name="gmail_preference_category_title">Gmail設定</string>
+    <string name="gmail_preference_title">Gmailの設定</string>
+    <string name="gmail_preference_summary">Gmailのアカウント情報を入力してください</string>
+    <string name="gmail_preference_gmail">アドレス</string>
+    <string name="gmail_preference_gmailpass">パスワード</string>
         
 </resources>

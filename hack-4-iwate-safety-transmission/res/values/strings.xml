@@ -7,12 +7,20 @@
     <string name="menu_preferences">Preferences</string>
     <string name="sms_input">Please input a phone number</string>
     <string name="email_input">Please input a e-mail address</string>
+    <string name="gmail_preference_gmail">Please input a gmail address</string>
+    <string name="gmail_preference_gmailpass">Please input a gmail password</string>
  
     <!-- Email -->
     <string name="email_preference_category_title">Email</string>
     <string name="email_preference_title">Email</string>
     <string name="email_preference_key">email_preference_key</string>
     <string name="email_preference_summary">Put email address to send</string>
+
+    <!-- Gmail -->
+    <string name="gmail_preference_category_title">Gmail</string>
+    <string name="gmail_preference_title">Gmail</string>
+    <string name="gmail_preference_key">gmail_preference_key</string>
+    <string name="gmail_preference_summary">Gmail acount</string>
     
     <!-- SMS -->
     <string name="sms_preference_category_title">SMS</string>

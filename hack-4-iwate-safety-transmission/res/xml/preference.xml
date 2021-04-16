@@ -18,5 +18,14 @@
             android:title="@string/sms_preference_title"
             android:summary="@string/sms_preference_summary" />
     </PreferenceCategory>
+
+    <PreferenceCategory android:id="@+id/gmail_preference_category"
+        android:title="@string/gmail_preference_category_title">
+        <Preference
+            android:id="@+id/gmail_preference"
+            android:key="@string/gmail_preference_key"
+            android:title="@string/gmail_preference_title"
+            android:summary="@string/gmail_preference_summary" />
+    </PreferenceCategory>
     
 </PreferenceScreen>
