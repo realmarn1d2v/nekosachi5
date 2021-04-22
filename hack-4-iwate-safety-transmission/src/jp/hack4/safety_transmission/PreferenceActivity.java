@@ -46,6 +46,14 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
         pref = findPreference(getString(R.string.sms_preference_key));
         pref.setIntent(intent);
         
+        /*
+         * Activity for Gmail Setting.
+         */
+        context = getApplicationContext();
+        intent = new Intent(context, GmailPreferences.class);
+        pref = findPreference(getString(R.string.gmail_preference_key));
+        pref.setIntent(intent);
+
         
         // mHashMap.put(R.string.sms_preference_category_title, intent);
         
