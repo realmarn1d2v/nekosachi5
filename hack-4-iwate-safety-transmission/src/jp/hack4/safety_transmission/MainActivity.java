@@ -1,6 +1,7 @@
 package jp.hack4.safety_transmission;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.http.cookie.SM;
 
@@ -9,6 +10,8 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -23,13 +26,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class MainActivity extends Activity implements LocationListener {
     private LocationManager mgr;
     private StringBuffer idokeido = new StringBuffer(100);
+    private final static String DB_TABLE="bujidesu";   //テーブル名
     
     /** Called when the activity is first created. */
     @Override
@@ -37,6 +50,52 @@ public class MainActivity extends Activity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        //データベース参照
+    	SQLiteDatabase db;
+    	DatabaseHelper hlpr = new DatabaseHelper(getApplicationContext());
+    	db = hlpr.getReadableDatabase();
+
+    	Cursor c=db.query(DB_TABLE,new String[]{"id","value","sort"},
+                "id='gmailaddress'",null,null,null,null);
+        if (c.getCount()!=0){
+                c.moveToFirst();
+                GmailPreferences.gmailaddress=(c.getString(1));
+        }
+        c.close();
+        
+        c=db.query(DB_TABLE,new String[]{"id","value","sort"},
+                "id='gmailpass'",null,null,null,null);
+        if (c.getCount()!=0){
+                c.moveToFirst();
+                GmailPreferences.gmailpass=(c.getString(1));
+        }
+        c.close();
+        
+        c=db.query(DB_TABLE,new String[]{"id","value","sort"},
+                "id='sms'",null,null,null,null);
+        SMSPreferences.adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        if (c.getCount()!=0){
+                c.moveToFirst();
+                for (int i = 0; i < c.getCount(); i++) {
+                	SMSPreferences.adapter.add(c.getString(1));
+                    c.moveToNext();
+                }
+        }
+        c.close();
+     
+        c=db.query(DB_TABLE,new String[]{"id","value","sort"},
+                "id='email'",null,null,null,null);
+        EmailPreferences.adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        if (c.getCount()!=0){
+                c.moveToFirst();
+                for (int i = 0; i < c.getCount(); i++) {
+                	EmailPreferences.adapter.add(c.getString(1));
+                    c.moveToNext();
+                }
+        }
+        c.close();
+        
+        
         /* 位置情報の取得 */  
 		 // ロケーションマネージャの取得  
 		 LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);  
@@ -95,18 +154,38 @@ public class MainActivity extends Activity implements LocationListener {
 
 				// Send Mail
 			    if (EmailPreferences.adapter != null) {
-			        String dstAddr = EmailPreferences.adapter.getItem(0);
-		             Intent intent = new Intent();  
-		             // アクションを指定  
-		             intent.setAction(Intent.ACTION_SENDTO);  
-		             // データを指定  
-		             intent.setData(Uri.parse("mailto:" + dstAddr));
-		             // 件名を指定  
-		             intent.putExtra(Intent.EXTRA_SUBJECT, "件名");  
-		             // 本文を指定  
-		             intent.putExtra(Intent.EXTRA_TEXT, msg);
-		             // Intentを発行  
-		             startActivity(intent);  
+				    Properties props = new Properties();
+				    props.put("mail.smtp.host", "smtp.gmail.com"); // SMTPサーバ名
+				    props.put("mail.host", "smtp.gmail.com");      // 接続するホスト名
+				    props.put("mail.smtp.port", "587");       // SMTPサーバポート
+				    props.put("mail.smtp.auth", "true");    // smtp auth
+				    props.put("mail.smtp.starttls.enable", "true");	// STTLS
+				    // セッション
+				    Session session = Session.getDefaultInstance(props);
+				    session.setDebug(true);
+				    MimeMessage emailmsg = new MimeMessage(session);
+				    try {
+				    	emailmsg.setSubject("ブジだす君", "utf-8");
+				    	emailmsg.setFrom(new InternetAddress(GmailPreferences.gmailaddress));
+				    	emailmsg.setSender(new InternetAddress(GmailPreferences.gmailaddress));
+				    	emailmsg.setText(msg,	"utf-8");
+
+				    	Transport t = session.getTransport("smtp");
+				    	t.connect(GmailPreferences.gmailaddress, GmailPreferences.gmailpass);
+
+				    	int email_size = EmailPreferences.adapter.getCount();
+				        for (int i = 0 ; i < email_size; i++) {
+					    	emailmsg.setRecipient(Message.RecipientType.TO, new InternetAddress(EmailPreferences.adapter.getItem(i)));
+					    	t.sendMessage(emailmsg, emailmsg.getAllRecipients());
+				        }
+
+				    
+				    } catch (MessagingException e) {
+				    	e.printStackTrace();
+				    }
+
+			    	
+ 
 			    }
 			    text.setText("");
 			}
